@@ -16,7 +16,8 @@ const somDeIniciarContagem = new Audio('/sons/play.wav')
 const somDePausarContagem = new Audio('/sons/pause.mp3')
 const somDeTerminoContagem = new Audio('/sons/beep.mp3')
 
-let tempoDecorridoEmSegundos = 1500
+// let tempoDecorridoEmSegundos = 1500
+let tempoDecorridoEmSegundos = 5
 let intervaloId = null
 
 musica.loop = true
@@ -83,6 +84,11 @@ const contagemRegressiva = () => {
     if (tempoDecorridoEmSegundos <= 0) {
         somDeTerminoContagem.play()
         alert('Tempo finalizado!')
+        const focoAtivo = html.getAttribute('data-contexto')
+        if (focoAtivo) {
+            const evento = new CustomEvent('FocoFinalizado')
+            document.dispatchEvent(evento)
+        }
         zerar()
         return
     }
